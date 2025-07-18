@@ -1,0 +1,43 @@
+    /* .seat {
+        width: 40px;
+        height: 40px;
+        margin: 5px;
+        background-color: #28a745;
+        color: white;
+        text-align: center;
+        line-height: 40px;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    .booked {
+        background-color: #dc3545 !important;
+    }
+
+    .row-seat {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+    } */
+
+    /* public/css/style.css */
+
+.seat {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  background-color: #28a745;
+  color: white;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+.booked {
+  background-color: #dc3545 !important;
+}
+.row-seat {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
