@@ -1,3 +1,4 @@
+<!-- app/controllers/LoginControler.php -->
 <?php
 
 class LoginController extends Controller
@@ -28,7 +29,7 @@ class LoginController extends Controller
             // Redirect berdasarkan role
             switch ($user['role']) {
                 case 'admin':
-                    header('Location: index.php?url=dashboard/admin'); // Redirect ke dashboard admin
+                    header('Location: index.php?url=admin');
                     exit;
                 case 'kernet':
                     header('Location: index.php?url=kernet/index'); // Redirect ke halaman kernet untuk scan tiket

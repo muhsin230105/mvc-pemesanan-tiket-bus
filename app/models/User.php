@@ -33,4 +33,10 @@ class User extends Model
         $this->bind(':email', $email);
         return $this->single();
     }
+
+    public function getUserCount()
+    {
+        $this->query("SELECT COUNT(*) as total FROM users");
+        return $this->single()['total'];
+    }
 }

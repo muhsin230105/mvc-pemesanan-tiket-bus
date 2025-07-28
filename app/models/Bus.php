@@ -54,4 +54,44 @@ class Bus extends Model
         $stmt->execute([$bus_id]);
         return $stmt->fetchAll(PDO::FETCH_COLUMN); // ambil array nomor_kursi
     }
+
+    public function insertBus($data)
+    {
+        $stmt = $this->db->prepare("INSERT INTO bus (kode_bus, asal, tujuan, tanggal, jam, jumlah_kursi, harga_per_kursi) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->execute([
+            $data['kode_bus'],
+            $data['asal'],
+            $data['tujuan'],
+            $data['tanggal'],
+            $data['jam'],
+            $data['jumlah_kursi'],
+            $data['harga_per_kursi']
+        ]);
+    }
+
+    public function updateBus($id, $data)
+    {
+        $stmt = $this->db->prepare("UPDATE bus SET kode_bus = ?, asal = ?, tujuan = ?, tanggal = ?, jam = ?, jumlah_kursi = ?, harga_per_kursi = ? WHERE id = ?");
+        $stmt->execute([
+            $data['kode_bus'],
+            $data['asal'],
+            $data['tujuan'],
+            $data['tanggal'],
+            $data['jam'],
+            $data['jumlah_kursi'],
+            $data['harga_per_kursi'],
+            $id
+        ]);
+    }
+
+    public function deleteBus($id)
+    {
+        try {
+            $stmt = $this->db->prepare("DELETE FROM bus WHERE id = ?");
+            $stmt->execute([$id]);
+        } catch (PDOException $e) {
+            echo "<script>alert('Gagal menghapus data. Bus ini masih digunakan di tiket!'); window.location.href='index.php?url=admin/bus';</script>";
+            exit;
+        }
+    }
 }

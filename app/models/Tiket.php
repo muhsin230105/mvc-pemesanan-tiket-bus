@@ -113,4 +113,14 @@ class Tiket
         $stmt = $db->prepare($query);
         $stmt->execute([$tiket_id]);
     }
+
+    public function getTiketCount()
+    {
+        $db = Database::getInstance();
+        $query = "SELECT COUNT(*) as total FROM tiket WHERE status IN ('sudah_bayar', 'digunakan')";
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result['total'];
+    }
 }

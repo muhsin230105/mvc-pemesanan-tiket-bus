@@ -22,5 +22,7 @@ spl_autoload_register(function ($class) {
     }
 });
 
+
+
 // Jalankan aplikasi
 $app = new App();
