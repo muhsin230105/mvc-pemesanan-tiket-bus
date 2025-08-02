@@ -1,5 +1,5 @@
 <!-- app/views/kernet/index.php -->
-
+<?php include '../app/views/layouts/header.php'; ?>
 <!DOCTYPE html>
 <html lang="id">
 

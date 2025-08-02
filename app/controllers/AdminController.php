@@ -1,35 +1,7 @@
 <?php
 // app/controllers/AdminController.php
-// class AdminController extends Controller
-// {
-//     public function __construct()
-//     {
-//         // Pastikan hanya admin yang bisa mengakses halaman ini
-//         if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
-//             echo "Anda tidak memiliki akses ke halaman ini.";
-//             exit;
-//         }
-//     }
-
-//     public function index()
-//     {
-//         // Menampilkan halaman dashboard admin
-//         $this->view('admin/dashboard');
-//     }
-// }
-
-// app/controllers/AdminController.php
-
 class AdminController extends Controller
 {
-    public function __construct()
-    {
-        if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
-            echo "Anda tidak memiliki akses ke halaman ini.";
-            exit;
-        }
-    }
-
     public function index()
     {
         $busModel = $this->model('Bus');
@@ -42,6 +14,11 @@ class AdminController extends Controller
         $data['totalTiket'] = $tiketModel->getTiketCount();
 
         $this->view('admin/dashboard', $data);
+    }
+
+    public function __construct()
+    {
+        requireLogin('admin');
     }
 
     public function bus()
@@ -82,5 +59,51 @@ class AdminController extends Controller
         $busModel->deleteBus($id);
         header('Location: index.php?url=admin/bus');
         exit;
+    }
+
+    // -------------------------------------------------------------
+
+    public function users()
+    {
+        $userModel = $this->model('User');
+        $data['users'] = $userModel->getAllUsers();
+        $this->view('admin/users/index', $data);
+    }
+
+    public function hapusUser($id)
+    {
+        $userModel = $this->model('User');
+        try {
+            $userModel->deleteUser($id);
+        } catch (PDOException $e) {
+            echo "<script>alert('Gagal menghapus. User ini memiliki tiket aktif!'); window.location.href='index.php?url=admin/users';</script>";
+            exit;
+        }
+
+        header("Location: index.php?url=admin/users");
+        exit;
+    }
+
+    // -------------------------------------------------------------
+
+    public function tiket()
+    {
+        $tiketModel = $this->model('Tiket');
+        $data['tiket'] = $tiketModel->getAllTiketWithRelasi();
+        $this->view('admin/tiket/index', $data);
+    }
+
+    public function ubahStatusTiket()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $tiketModel = $this->model('Tiket');
+            $id = $_POST['tiket_id'];
+            $status = $_POST['status'];
+            $metode = $_POST['metode_pembayaran'] ?? null;
+
+            $tiketModel->updateStatusPembayaran($id, $status, $metode);
+            header('Location: index.php?url=admin/tiket');
+            exit;
+        }
     }
 }

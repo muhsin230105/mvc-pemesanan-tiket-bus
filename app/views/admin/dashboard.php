@@ -3,30 +3,37 @@
     <h1>Selamat Datang, Admin!</h1>
     <p class="mb-3">Statistik Sistem</p>
 
+
     <div class="row">
         <div class="col-md-4">
-            <div class="card text-white bg-primary mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Total Pengguna</h5>
-                    <p class="card-text fs-3"><?= $data['totalUser'] ?></p>
+            <a href="index.php?url=admin/users" class="text-decoration-none text-white">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Pengguna</h5>
+                        <p class="card-text fs-3"><?= $data['totalUser'] ?></p>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
         <div class="col-md-4">
-            <div class="card text-white bg-success mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Tiket Terjual</h5>
-                    <p class="card-text fs-3"><?= $data['totalTiket'] ?></p>
+            <a href="index.php?url=admin/tiket" class="text-decoration-none text-white">
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Tiket Terjual</h5>
+                        <p class="card-text fs-3"><?= $data['totalTiket'] ?></p>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
         <div class="col-md-4">
-            <div class="card text-white bg-warning mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Bus Aktif</h5>
-                    <p class="card-text fs-3"><?= $data['totalBus'] ?></p>
+            <a href="index.php?url=admin/bus" class="text-decoration-none text-white">
+                <div class="card text-white bg-warning mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Bus Aktif</h5>
+                        <p class="card-text fs-3"><?= $data['totalBus'] ?></p>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
 

@@ -16,17 +16,13 @@ class LoginController extends Controller
         $userModel = $this->model('User');
         $user = $userModel->findByEmail($email);
 
-        // Cek apakah user ditemukan dan password cocok
         if ($user && password_verify($password, $user['password'])) {
-            // Set session user
             $_SESSION['user'] = [
                 'id' => $user['id'],
                 'nama' => $user['nama'],
                 'email' => $user['email'],
                 'role' => $user['role']
             ];
-
-            // Redirect berdasarkan role
             switch ($user['role']) {
                 case 'admin':
                     header('Location: index.php?url=admin');

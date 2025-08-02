@@ -5,11 +5,6 @@ class HomeController extends Controller
     public function index()
     {
         requireLogin();
-        if ($_SESSION['user']['role'] === 'kernet') {
-            // Redirect kernet jika mencoba mengakses halaman home
-            echo "<script>alert('Akses ditolak. Halaman ini hanya untuk admin dan pembeli.'); window.location.href='index.php';</script>";
-            exit;
-        }
         $busModel = $this->model('Bus');
         $data['title'] = 'Beranda';
         $data['bus'] = $busModel->getAllBus();

@@ -1,24 +1,17 @@
 
 <?php
 // app/core/Model.php
-
 class Model
 {
+    /**
+     * @var PDO
+     */
     protected $db;
     protected $stmt;
 
     public function __construct()
     {
-        $dsn = 'mysql:host=localhost;dbname=appbus;charset=utf8';
-        $user = 'root';
-        $pass = ''; // sesuaikan kalau kamu pakai password
-
-        try {
-            $this->db = new PDO($dsn, $user, $pass);
-            $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e) {
-            die('Koneksi DB gagal: ' . $e->getMessage());
-        }
+        $this->db = Database::getInstance(); // ✅ gunakan instance tunggal
     }
 
     public function execute()

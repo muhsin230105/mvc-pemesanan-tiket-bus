@@ -5,18 +5,17 @@ class AkunController extends Controller
 {
     public function index()
     {
-        // Tampilkan halaman profil pengguna
+        requireLogin();
         $userModel = $this->model('User');
         $user_id = $_SESSION['user']['id'];
-        $data['user'] = $userModel->getUserById($user_id); // Mengambil data pengguna berdasarkan ID
+        $data['user'] = $userModel->getUserById($user_id);
 
-        // Menambahkan pesan notifikasi jika ada
         if (isset($_SESSION['success_message'])) {
             $data['success_message'] = $_SESSION['success_message'];
-            unset($_SESSION['success_message']); // Menghapus pesan setelah ditampilkan
+            unset($_SESSION['success_message']);
         }
 
-        $this->view('home/akun', $data);  // Menampilkan halaman akun
+        $this->view('home/akun', $data);
     }
 
     public function update()

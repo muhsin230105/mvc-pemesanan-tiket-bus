@@ -1,3 +1,7 @@
+<?php
+$current = $_GET['url'] ?? 'admin'; // default 'admin' kalau kosong
+?>
+<?php include '../app/views/layouts/header.php'; ?>
 <!DOCTYPE html>
 <html lang="id">
 
@@ -9,16 +13,25 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">PO Muhsin Jaya</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="/admin">Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/admin/users">Pengguna</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/admin/bus">Bus</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/logout">Keluar</a></li>
-                </ul>
+    <div class="d-flex flex-column min-vh-100">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link <?= $current === 'admin' ? 'active' : '' ?>" href="index.php?url=admin">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link <?= $current === 'admin/users' ? 'active' : '' ?>" href="index.php?url=admin/users">Pengguna</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link <?= $current === 'admin/bus' ? 'active' : '' ?>" href="index.php?url=admin/bus">Bus</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link <?= $current === 'admin/tiket' ? 'active' : '' ?>" href="index.php?url=admin/tiket">tiket</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>

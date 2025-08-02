@@ -2,7 +2,6 @@
 // app/models/Bus.php
 class Bus extends Model
 {
-    // Di model Bus.php
     public function getTerminalList()
     {
         $stmt = $this->db->query("SELECT DISTINCT asal FROM bus UNION SELECT DISTINCT tujuan FROM bus");

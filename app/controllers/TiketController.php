@@ -3,15 +3,12 @@
 class TiketController extends Controller
 {
 
-    public function index() {}
+    public function index()
+    {
+        requireLogin();
+    }
     public function pesan()
     {
-        if (!isset($_SESSION['user'])) {
-            // Jika pengguna belum login, redirect ke halaman login
-            header('Location: index.php?url=login');
-            exit;
-        }
-
         // Mengambil data dari form dan validasi input
         $bus_id = $_POST['bus_id'] ?? '';
         $tanggal = $_POST['tanggal'] ?? '';

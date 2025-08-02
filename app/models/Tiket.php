@@ -123,4 +123,24 @@ class Tiket
         $result = $stmt->fetch();
         return $result['total'];
     }
+
+    public function getAllTiketWithRelasi()
+    {
+        $db = Database::getInstance();
+        $query = "SELECT 
+                tiket.*, 
+                users.nama AS nama_user, 
+                bus.kode_bus, 
+                bus.asal, 
+                bus.tujuan, 
+                bus.tanggal, 
+                bus.jam 
+              FROM tiket
+              LEFT JOIN users ON tiket.user_id = users.id
+              LEFT JOIN bus ON tiket.bus_id = bus.id
+              ORDER BY tiket.id DESC";
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 }

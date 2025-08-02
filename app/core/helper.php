@@ -10,7 +10,7 @@ function requireLogin($role = null)
 
     // Jika role di-set dan role tidak sesuai dengan role user, beri akses ditolak
     if ($role && $_SESSION['user']['role'] !== $role) {
-        echo "Akses ditolak. Halaman ini hanya untuk $role.";
+        echo "Akses ditolak.!!!!";
         exit;
     }
 }

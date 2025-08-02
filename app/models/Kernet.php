@@ -1,45 +1,37 @@
 <?php
 // app/models/Kernet.php
 
-require_once __DIR__ . '/../core/Model.php';
-
 class Kernet extends Model
 {
-    // Fungsi untuk menyimpan log scan
     public function createScanLog($tiket_id, $kernet_id)
     {
-        echo "Barcode yang dicari: " . $tiket_id; // Menampilkan barcode yang dicari
-
-        // Query untuk mencari tiket berdasarkan barcode
         $this->query("SELECT id, status FROM tiket WHERE barcode = :barcode");
         $this->bind(':barcode', $tiket_id);
-        $result = $this->single(); // Mengambil satu hasil yang sesuai
+        $result = $this->single();
 
-        // Memeriksa apakah tiket ditemukan
         if ($result) {
-            // Validasi apakah tiket sudah digunakan
+
             if ($result['status'] == 'digunakan') {
                 echo "Tiket sudah digunakan, tidak bisa diproses lagi.";
-                return false; // Tiket sudah digunakan, tidak melanjutkan proses
+                return false;
             }
 
-            // Jika tiket ditemukan dan statusnya belum digunakan, update status tiket menjadi 'digunakan'
+
             $this->query("UPDATE tiket SET status = 'digunakan' WHERE id = :tiket_id");
             $this->bind(':tiket_id', $result['id']);
-            $this->execute(); // Menyimpan perubahan status tiket
+            $this->execute();
 
-            // Insert log scan
+
             $waktu_scan = date('Y-m-d H:i:s');
             $this->query("INSERT INTO scan_log (tiket_id, kernet_id, waktu_scan) VALUES (:tiket_id, :kernet_id, :waktu_scan)");
             $this->bind(':tiket_id', $result['id']);
             $this->bind(':kernet_id', $kernet_id);
             $this->bind(':waktu_scan', $waktu_scan);
-            $this->execute(); // Menyimpan log scan
-
-            return true; // Proses selesai dengan sukses
+            $this->execute();
+            return true;
         } else {
             echo "Tiket tidak ditemukan.";
-            return false; // Tiket tidak ditemukan
+            return false;
         }
     }
 
