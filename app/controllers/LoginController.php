@@ -7,6 +7,34 @@ class LoginController extends Controller
     {
         $this->view('auth/login');
     }
+    public function register()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $nama = $_POST['nama'];
+            $email = $_POST['email'];
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $no_hp = $_POST['no_hp'];
+
+            $userModel = $this->model('User');
+
+            // Optional: validasi email unik
+            if ($userModel->findByEmail($email)) {
+                echo "<script>alert('Email sudah digunakan!'); window.location.href='index.php?url=login';</script>";
+                exit;
+            }
+
+            $userModel->insertUser([
+                'nama' => $nama,
+                'email' => $email,
+                'password' => $password,
+                'no_hp' => $no_hp,
+                'role' => 'pembeli' // Default
+            ]);
+
+            echo "<script>alert('Registrasi berhasil! Silakan login.'); window.location.href='index.php?url=login';</script>";
+            exit;
+        }
+    }
 
     public function proses()
     {

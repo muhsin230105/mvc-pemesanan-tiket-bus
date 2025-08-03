@@ -55,7 +55,7 @@ require_once '../app/views/layouts/navbar.php'; ?>
                         <td><?= $bus['tanggal']; ?></td>
                         <td><?= $bus['jam']; ?></td>
                         <td><?= $bus['jumlah_kursi']; ?></td>
-                        <td><a href="index.php?url=bus/detail/<?= $bus['id']; ?>" class="btn btn-sm btn-info">Detail</a></td>
+                        <td><a href="index.php?url=bus/detail/<?= $bus['id']; ?>" class="btn btn-sm btn-info">PESAN</a></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

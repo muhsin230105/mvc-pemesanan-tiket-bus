@@ -13,7 +13,7 @@ require_once '../app/views/layouts/navbar.php';
                     <th>ID Tiket</th>
                     <th>Bus</th>
                     <th>Tanggal Pesan</th>
-                    <th>Status Pembayaran</th>
+                    <th>Status Tiket</th>
                     <th>Harga</th>
                     <th>Aksi</th>
                 </tr>

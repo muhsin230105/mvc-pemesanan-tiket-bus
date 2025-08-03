@@ -70,6 +70,55 @@ class AdminController extends Controller
         $this->view('admin/users/index', $data);
     }
 
+    public function tambahUser()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userModel = $this->model('User');
+
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+            $userModel->insertUser([
+                'nama'     => $_POST['nama'],
+                'email'    => $_POST['email'],
+                'password' => $password,
+                'no_hp'    => $_POST['no_hp'],
+                'role'     => $_POST['role']
+            ]);
+
+            header('Location: index.php?url=admin/users');
+            exit;
+        }
+
+        $this->view('admin/users/create');
+    }
+
+    public function editUser($id)
+    {
+        $userModel = $this->model('User');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $nama     = $_POST['nama'];
+            $email    = $_POST['email'];
+            $password = !empty($_POST['password'])
+                ? password_hash($_POST['password'], PASSWORD_DEFAULT)
+                : null;
+
+            $userModel->updateUserByAdmin(
+                $id,
+                $_POST['nama'],
+                $_POST['email'],
+                !empty($_POST['password']) ? password_hash($_POST['password'], PASSWORD_DEFAULT) : null,
+                $_POST['no_hp'],
+                $_POST['role']
+            );
+
+            header('Location: index.php?url=admin/users');
+            exit;
+        }
+
+        $data['user'] = $userModel->getUserById($id);
+        $this->view('admin/users/edit', $data);
+    }
+
     public function hapusUser($id)
     {
         $userModel = $this->model('User');

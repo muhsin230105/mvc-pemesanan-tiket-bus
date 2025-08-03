@@ -22,7 +22,7 @@
             <?php foreach ($data['tiket'] as $t): ?>
                 <tr>
                     <td><?= $t['id'] ?></td>
-                    <td><?= htmlspecialchars($t['nama_user']) ?></td>
+                    <td><?= htmlspecialchars($t['nama_user'] ?? '') ?></td>
                     <td><?= $t['kode_bus'] ?></td>
                     <td><?= $t['asal'] ?> → <?= $t['tujuan'] ?></td>
                     <td><?= $t['tanggal'] ?></td>

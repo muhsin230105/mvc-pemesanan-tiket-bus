@@ -1,9 +1,21 @@
 <?php
 // app/models/User.php
-require_once __DIR__ . '/../core/Model.php';
+
 
 class User extends Model
 {
+    public function insertUser($data)
+    {
+        $stmt = $this->db->prepare("INSERT INTO users (nama, email, password, no_hp, role) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([
+            $data['nama'],
+            $data['email'],
+            $data['password'],
+            $data['no_hp'],
+            $data['role']
+        ]);
+    }
+
     public function getUserById($user_id)
     {
         $this->query("SELECT * FROM users WHERE id = :id");
@@ -13,7 +25,6 @@ class User extends Model
 
     public function updateUser($user_id, $nama, $email, $password = null)
     {
-        // Jika password kosong, update hanya nama dan email
         if ($password) {
             $this->query("UPDATE users SET nama = :nama, email = :email, password = :password WHERE id = :id");
             $this->bind(':password', $password);
@@ -26,6 +37,25 @@ class User extends Model
 
         return $this->execute();
     }
+
+    public function updateUserByAdmin($user_id, $nama, $email, $password = null, $no_hp = '', $role = '')
+    {
+        if ($password) {
+            $this->query("UPDATE users SET nama = :nama, email = :email, password = :password, no_hp = :no_hp, role = :role WHERE id = :id");
+            $this->bind(':password', $password);
+        } else {
+            $this->query("UPDATE users SET nama = :nama, email = :email, no_hp = :no_hp, role = :role WHERE id = :id");
+        }
+
+        $this->bind(':nama', $nama);
+        $this->bind(':email', $email);
+        $this->bind(':no_hp', $no_hp);
+        $this->bind(':role', $role);
+        $this->bind(':id', $user_id);
+
+        return $this->execute();
+    }
+
 
     public function findByEmail($email)
     {
